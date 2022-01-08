@@ -19,12 +19,6 @@ public class CreateUsuarioUseCase implements SaveUsuario{
         this.mapperUtils = mapperUtils;
     }
 
-
- /*   @Override
-    public Mono<UsuarioDTO> findByUid(UsuarioDTO usuarioDTO) {
-        return null;
-    }*/
-
     @Override
     public Mono<Usuario> apply(UsuarioDTO usuarioDTO) {
         return usuarioRepository.findUsuarioByUid(usuarioDTO.getUid())

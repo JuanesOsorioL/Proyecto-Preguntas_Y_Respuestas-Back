@@ -1,5 +1,6 @@
 package co.com.sofka.questions.usecases.Answer;
 
+import co.com.sofka.questions.Services.EnviarService;
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.repositories.AnswerRepository;
@@ -17,11 +18,13 @@ public class AddAnswerUseCase implements SaveAnswer {
     private final AnswerRepository answerRepository;
     private final MapperUtils mapperUtils;
     private final GetUseCase getUseCase;
+    private final EnviarService enviarService;
 
-    public AddAnswerUseCase(MapperUtils mapperUtils, GetUseCase getUseCase, AnswerRepository answerRepository) {
+    public AddAnswerUseCase(MapperUtils mapperUtils, GetUseCase getUseCase, AnswerRepository answerRepository, EnviarService enviarService) {
         this.answerRepository = answerRepository;
         this.getUseCase = getUseCase;
         this.mapperUtils = mapperUtils;
+        this.enviarService = enviarService;
     }
 
     public Mono<QuestionDTO> apply(AnswerDTO answerDTO) {
