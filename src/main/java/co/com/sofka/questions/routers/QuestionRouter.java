@@ -2,6 +2,7 @@ package co.com.sofka.questions.routers;
 
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
+import co.com.sofka.questions.model.QuestionPhotoDTO;
 import co.com.sofka.questions.usecases.Answer.AddAnswerUseCase;
 import co.com.sofka.questions.usecases.Questions.*;
 import org.springframework.context.annotation.Bean;
@@ -31,14 +32,14 @@ public class QuestionRouter {
 
     //////
     @Bean
-    public RouterFunction<ServerResponse> getAllWithPhoto(ListUseCase listUseCase) {
+    public RouterFunction<ServerResponse> getAllWithPhoto(ListPhotoUseCase listPhotoUseCase) {
         return route(GET("/getAllPhoto"),
                 request -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(listUseCase.get(), QuestionDTO.class))
+                        .body(BodyInserters.fromPublisher(listPhotoUseCase.get(), QuestionPhotoDTO.class))
         );
     }
-
+////////////
 
 
     @Bean
