@@ -29,6 +29,18 @@ public class QuestionRouter {
         );
     }
 
+    //////
+    @Bean
+    public RouterFunction<ServerResponse> getAllWithPhoto(ListUseCase listUseCase) {
+        return route(GET("/getAllPhoto"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(listUseCase.get(), QuestionDTO.class))
+        );
+    }
+
+
+
     @Bean
     public RouterFunction<ServerResponse> getOwnerAll(OwnerListUseCase ownerListUseCase) {
         return route(
@@ -67,7 +79,7 @@ public class QuestionRouter {
                         ))
         );
     }
-
+///////////////////
     @Bean
     public RouterFunction<ServerResponse> addAnswer(AddAnswerUseCase addAnswerUseCase) {
         return route(POST("/add").and(accept(MediaType.APPLICATION_JSON)),

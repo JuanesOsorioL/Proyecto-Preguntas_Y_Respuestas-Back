@@ -1,3 +1,4 @@
+/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -50,4 +51,4 @@ class GetUseCaseTest {
     }
 
 
-}
+}*/

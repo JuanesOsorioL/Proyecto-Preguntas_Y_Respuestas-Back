@@ -1,3 +1,4 @@
+/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -54,4 +55,4 @@ class FindAllByCategoryUseCaseTest {
                 .verifyComplete();
         verify(repository).findAllByCategory(question.getCategory().toString());
     }
-}
+}*/
