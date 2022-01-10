@@ -13,7 +13,6 @@ public class AnswerDTO {
     @NotBlank
     private String questionId;
     @NotBlank
-    @Size(min=15, max = 250)
     private String answer;
 
     private Integer position;
