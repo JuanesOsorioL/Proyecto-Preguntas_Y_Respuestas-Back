@@ -1,8 +1,6 @@
 package co.com.sofka.questions.routers.Usuario;
 
-import co.com.sofka.questions.model.QuestionDTO;
 import co.com.sofka.questions.model.UsuarioDTO;
-import co.com.sofka.questions.usecases.Questions.FindAllByCategoryUseCase;
 import co.com.sofka.questions.usecases.Usuario.GetUsuarioByIdUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

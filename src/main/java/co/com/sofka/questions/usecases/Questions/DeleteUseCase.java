@@ -22,7 +22,7 @@ public class DeleteUseCase implements Function<String, Mono<Void>> {
 
     @Override
     public Mono<Void> apply(String id) {
-        Objects.requireNonNull(id, "Id is required");
+        Objects.requireNonNull(id, "Id pregunta requerida");
         return questionRepository.deleteById(id)
                 .switchIfEmpty(Mono.defer(() -> answerRepository.deleteByQuestionId(id)));
     }

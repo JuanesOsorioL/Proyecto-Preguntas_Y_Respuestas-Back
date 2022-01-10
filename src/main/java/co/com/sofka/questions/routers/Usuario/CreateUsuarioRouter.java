@@ -19,12 +19,7 @@ public class CreateUsuarioRouter {
     @Bean
     public RouterFunction<ServerResponse> createUsuario(CreateUsuarioUseCase createUsuarioUseCase){
 
-      /*  Function<UsuarioDTO, Mono<ServerResponse>> executor = usuarioDTO -> createUsuarioUseCase.apply(usuarioDTO)
-                .flatMap(result -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(result));*/
-
-        return route(
+   return route(
                 POST("/createUsuario").and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(UsuarioDTO.class)
                         .flatMap(questionDTO -> createUsuarioUseCase.apply(questionDTO)

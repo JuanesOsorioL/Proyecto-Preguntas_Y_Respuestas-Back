@@ -1,4 +1,3 @@
-/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -30,27 +29,27 @@ class UpdateUseCaseTest {
     @Test
     void updateQuestionTest() {
 
-        var questionDTO = new QuestionDTO("11",
-                "xxxx",
-                "What is java?",
+        var questionDT0 = new QuestionDTO("XXX","User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.SCIENCES);
-
-        var question = new Question("11",
-                "xxxx",
-                "What is java?",
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
+        var question = new Question("XXX",
+                "User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.SCIENCES);
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
 
 
         when(repository.save(Mockito.any())).thenReturn(Mono.just(question));
 
-        var result = updateUseCase.apply(questionDTO);
+        var result = updateUseCase.apply(questionDT0);
 
-        Assertions.assertEquals(Objects.requireNonNull(result.block()), "11");
+        Assertions.assertEquals(Objects.requireNonNull(result.block()), "XXX");
 
         Mockito.verify(repository,Mockito.times(1)).save(any());
 
     }
 
-}*/
+}

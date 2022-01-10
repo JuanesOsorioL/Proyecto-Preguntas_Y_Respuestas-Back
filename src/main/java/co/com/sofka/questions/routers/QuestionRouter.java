@@ -2,7 +2,6 @@ package co.com.sofka.questions.routers;
 
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
-import co.com.sofka.questions.model.QuestionPhotoDTO;
 import co.com.sofka.questions.usecases.Answer.AddAnswerUseCase;
 import co.com.sofka.questions.usecases.Questions.*;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +21,45 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class QuestionRouter {
 
     @Bean
+    public RouterFunction<ServerResponse> create(CreateUseCase createUseCase) {
+        Function<QuestionDTO, Mono<ServerResponse>> executor = questionDTO ->  createUseCase.apply(questionDTO)
+                .flatMap(result -> ServerResponse.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .bodyValue(result));
+        return route(
+                POST("/create").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(QuestionDTO.class).flatMap(executor)
+        );
+    }
+
+
+
+    @Bean
+    public RouterFunction<ServerResponse> delete(DeleteUseCase deleteUseCase) {
+        return route(
+                DELETE("/delete/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(deleteUseCase.apply(request.pathVariable("id")), Void.class))
+        );
+    }
+
+
+
+    @Bean
+    public RouterFunction<ServerResponse> get(GetUseCase getUseCase) {
+        return route(
+                GET("/get/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(getUseCase.apply(
+                                        request.pathVariable("id")),
+                                QuestionDTO.class
+                        ))
+        );
+    }
+
+    @Bean
     public RouterFunction<ServerResponse> getAll(ListUseCase listUseCase) {
         return route(GET("/getAll"),
                 request -> ServerResponse.ok()
@@ -29,18 +67,6 @@ public class QuestionRouter {
                         .body(BodyInserters.fromPublisher(listUseCase.get(), QuestionDTO.class))
         );
     }
-
-    //////
-    @Bean
-    public RouterFunction<ServerResponse> getAllWithPhoto(ListPhotoUseCase listPhotoUseCase) {
-        return route(GET("/getAllPhoto"),
-                request -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(listPhotoUseCase.get(), QuestionPhotoDTO.class))
-        );
-    }
-////////////
-
 
     @Bean
     public RouterFunction<ServerResponse> getOwnerAll(OwnerListUseCase ownerListUseCase) {
@@ -51,35 +77,37 @@ public class QuestionRouter {
                         .body(BodyInserters.fromPublisher(
                                 ownerListUseCase.apply(request.pathVariable("userId")),
                                 QuestionDTO.class
-                         ))
-        );
-    }
-
-    @Bean
-    public RouterFunction<ServerResponse> create(CreateUseCase createUseCase) {
-        Function<QuestionDTO, Mono<ServerResponse>> executor = questionDTO ->  createUseCase.apply(questionDTO)
-                .flatMap(result -> ServerResponse.ok()
-                        .contentType(MediaType.TEXT_PLAIN)
-                        .bodyValue(result));
-
-        return route(
-                POST("/create").and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(QuestionDTO.class).flatMap(executor)
-        );
-    }
-
-    @Bean
-    public RouterFunction<ServerResponse> get(GetUseCase getUseCase) {
-        return route(
-                GET("/get/{id}").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(getUseCase.apply(
-                                request.pathVariable("id")),
-                                QuestionDTO.class
                         ))
         );
     }
+
+
+
+
+
+
+
+
+
+
+
+/*    //////
+    @Bean
+    public RouterFunction<ServerResponse> getAllWithPhoto(ListPhotoUseCase listPhotoUseCase) {
+        return route(GET("/getAllPhoto"),
+                request -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(listPhotoUseCase.get(), QuestionPhotoDTO.class))
+        );
+    }
+////////////*/
+
+
+
+
+
+
+
 ///////////////////
     @Bean
     public RouterFunction<ServerResponse> addAnswer(AddAnswerUseCase addAnswerUseCase) {
@@ -93,15 +121,7 @@ public class QuestionRouter {
         );
     }
 
-    @Bean
-    public RouterFunction<ServerResponse> delete(DeleteUseCase deleteUseCase) {
-        return route(
-                DELETE("/delete/{id}").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse.accepted()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(deleteUseCase.apply(request.pathVariable("id")), Void.class))
-        );
-    }
+
 
     @Bean
     public RouterFunction<ServerResponse> update(UpdateUseCase updateUseCase) {

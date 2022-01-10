@@ -1,4 +1,3 @@
-/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -30,27 +29,21 @@ class CreateUseCaseTest {
 
     @Test
     void createQuestion() {
-
-        var questionDT0 = new QuestionDTO("1",
-                "xxxx",
-                "What is java?",
-                Type.OPEN, Category.SCIENCES);
-
-        var question = new Question("1",
-                "xxxx",
-                "What is java?",
+        var questionDT0 = new QuestionDTO("User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.SCIENCES);
-
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
+        var question = new Question("XXX",
+                "User1",
+                "Que es Linux",
+                Type.OPEN,
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
         when(repository.save(Mockito.any())).thenReturn(Mono.just(question));
-
         var result = createUseCase.apply(questionDT0);
-
-        Assertions.assertEquals(Objects.requireNonNull(result.block()),"1");
+        Assertions.assertEquals(Objects.requireNonNull(result.block()),"XXX");
         Assertions.assertEquals(result.block(),question.getId());
-
         Mockito.verify(repository,Mockito.times(1)).save(any());
-
     }
-
-}*/
+}

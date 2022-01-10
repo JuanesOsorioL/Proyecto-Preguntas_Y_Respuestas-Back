@@ -1,4 +1,3 @@
-/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -25,30 +24,30 @@ class GetUseCaseTest {
     @Test
     public void getQuestion(){
 
-        var questionDTO = new QuestionDTO("1"
-                ,"1",
-                "¿What is java?",
+        var questionDT0 = new QuestionDTO("User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.TECHNOLOGY_AND_COMPUTER);
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
 
         var question= new Question();
-        question.setId("1");
-        question.setQuestion("¿What is java?");
-        question.setUserId("1");
+        question.setId("XXX");
+        question.setQuestion("Que es Linux");
+        question.setUserId("User1");
         question.setType(Type.OPEN);
-        question.setCategory(Category.TECHNOLOGY_AND_COMPUTER);
+        question.setCategory(Category.SCIENCES);
+        question.setEmail("juanesosorio@gmail.com");
 
         Mockito.when(questionRepository.findById(Mockito.any(String.class))).thenReturn(Mono.just(question));
 
-        var respuesta = getQuestion.apply("1");
+        var respuesta = getQuestion.apply("XXX");
         Assertions.assertEquals(respuesta.block().getQuestion(), question.getQuestion());
         Assertions.assertEquals(respuesta.block().getId(), question.getId());
         Assertions.assertEquals(respuesta.block().getUserId(), question.getUserId());
         Assertions.assertEquals(respuesta.block().getType(), question.getType());
         Assertions.assertEquals(respuesta.block().getCategory(), question.getCategory());
+        Assertions.assertEquals(respuesta.block().getEmail(), question.getEmail());
 
-        Mockito.verify(questionRepository,Mockito.times(1)).findById("1");
+        Mockito.verify(questionRepository,Mockito.times(1)).findById("XXX");
     }
-
-
-}*/
+}

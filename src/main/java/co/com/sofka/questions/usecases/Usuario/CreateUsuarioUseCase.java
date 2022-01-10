@@ -25,6 +25,5 @@ public class CreateUsuarioUseCase implements SaveUsuario{
                 .map(recurso -> recurso)
                 .switchIfEmpty( usuarioRepository.save(mapperUtils.mapperToUsuario(null).apply(usuarioDTO))
                         .map(recurso -> recurso));
-
     }
 }

@@ -1,4 +1,3 @@
-/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -32,19 +31,20 @@ class ListUseCaseTest {
     @Test
     void listQuestionsTest(){
 
-        var question = new Question("11",
-                "xxxx",
-                "What is java?",
+        var question = new Question("XXX",
+                "User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.SCIENCES);
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
 
         when(repository.findAll()).thenReturn(Flux.just(question));
 
         StepVerifier.create(listUseCase.get())
                 .expectNextMatches(questionDTO -> {
-                    assert questionDTO.getUserId().equals("xxxx");
+                    assert questionDTO.getUserId().equals("User1");
                     assert questionDTO.getCategory().equals(Category.SCIENCES);
-                    assert questionDTO.getQuestion().equals("What is java?");
+                    assert questionDTO.getQuestion().equals("Que es Linux");
                     assert questionDTO.getType().equals(Type.OPEN);
                     return true;
                 })
@@ -52,4 +52,4 @@ class ListUseCaseTest {
 
         verify(repository).findAll();
     }
-}*/
+}

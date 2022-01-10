@@ -1,4 +1,3 @@
-/*
 package co.com.sofka.questions.usecases.Questions;
 
 import co.com.sofka.questions.collections.Question;
@@ -15,8 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import reactor.core.publisher.Mono;
 
-import static org.mockito.ArgumentMatchers.any;
-
 @SpringBootTest
 class DeleteUseCaseTest {
 
@@ -30,26 +27,21 @@ class DeleteUseCaseTest {
 
     @Test
     void deleteUseCase(){
-
-        var questionDT0 = new QuestionDTO("1",
-                "xxxx",
-                "What is java?",
-                Type.OPEN, Category.SCIENCES);
-
-        var question = new Question("1",
-                "xxxx",
-                "What is java?",
+        var questionDT0 = new QuestionDTO("User1",
+                "Que es Linux",
                 Type.OPEN,
-                Category.SCIENCES);
-
-
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
+        var question = new Question("XXX",
+                "User1",
+                "Que es Linux",
+                Type.OPEN,
+                Category.SCIENCES,
+                "juanesosorio@gmail.com");
         Mockito.when(questionRepository.deleteById("xxxx")).thenReturn(Mono.empty());
         Mockito.when(answerRepository.deleteByQuestionId("xxxx")).thenReturn(Mono.empty());
-
         var result = deleteQuestionUseCase.apply("xxxx").block();
         Assertions.assertNull(result);
-
         Mockito.verify(answerRepository,Mockito.times(1)).deleteByQuestionId("xxxx");
     }
-
-}*/
+}

@@ -26,7 +26,7 @@ public class GetUseCase implements Function<String, Mono<QuestionDTO>> {
 
     @Override
     public Mono<QuestionDTO> apply(String id) {
-        Objects.requireNonNull(id, "Id is required");
+        Objects.requireNonNull(id, "Id pregunta es requerida");
         return questionRepository.findById(id)
                 .map(mapperUtils.mapEntityToQuestion())
                 .flatMap(mapQuestionAggregate());

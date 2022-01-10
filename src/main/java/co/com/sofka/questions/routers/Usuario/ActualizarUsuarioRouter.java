@@ -32,27 +32,6 @@ public class ActualizarUsuarioRouter {
                         .flatMap(executor)
         );
 
-
-
-
-
-
-
-/*        Function<UsuarioDTO, Mono<ServerResponse>> executor = usuarioDTO -> actualizarUsuarioUseCase.apply(usuarioDTO)
-                .flatMap(result -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(result));
-
-        return route(
-                POST("/actualizarUsuario").and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(UsuarioDTO.class)
-                        .flatMap(executor)
-        );*/
-
-
-
-
-
     }
 }
 

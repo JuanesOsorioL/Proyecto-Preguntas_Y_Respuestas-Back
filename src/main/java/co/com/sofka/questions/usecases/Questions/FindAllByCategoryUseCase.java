@@ -22,7 +22,7 @@ public class FindAllByCategoryUseCase {
     }
 
     public Flux<QuestionDTO> apply(String category) {
-        Objects.requireNonNull(category, "Category is required");
+        Objects.requireNonNull(category, "La categoria es requerida");
         return questionRepository.findAllByCategory(category)
                 .map(mapperUtils.mapEntityToQuestion());
     }

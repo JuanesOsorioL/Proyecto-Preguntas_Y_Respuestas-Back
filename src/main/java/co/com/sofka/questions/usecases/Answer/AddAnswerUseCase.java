@@ -28,18 +28,14 @@ public class AddAnswerUseCase implements SaveAnswer {
     }
 
     public Mono<QuestionDTO> apply(AnswerDTO answerDTO) {
-        Objects.requireNonNull(answerDTO.getQuestionId(), "Id of the answer is required");
+        Objects.requireNonNull(answerDTO.getQuestionId(), "Id de respuesta requerida");
         return getUseCase.apply(answerDTO.getQuestionId()).flatMap(question ->
                 answerRepository.save(mapperUtils.mapperToAnswer().apply(answerDTO))
-                        .map(answer -> {
-                           // question.getAnswers().add(answerDTO);
-                            ///////////
-                            question.getAnswers().add(mapperUtils.mapEntityToAnswer().apply(answer));
+                        .map(answer -> { question.getAnswers().add(mapperUtils.mapEntityToAnswer().apply(answer));
                             enviarService.sendMail(
                                     question.getEmail(),
                                     "Han respondido a tu pregunta: " + question.getQuestion(),
                                     "Respuesta: \n" + answer.getAnswer());
-                            ///////////
                             return question;
                         })
         );

@@ -5,7 +5,6 @@ import co.com.sofka.questions.collections.Question;
 import co.com.sofka.questions.collections.Usuario;
 import co.com.sofka.questions.model.AnswerDTO;
 import co.com.sofka.questions.model.QuestionDTO;
-import co.com.sofka.questions.model.QuestionPhotoDTO;
 import co.com.sofka.questions.model.UsuarioDTO;
 import org.springframework.stereotype.Component;
 
@@ -56,7 +55,6 @@ public class MapperUtils {
                 entity.getQuestionId(),
                 entity.getUserId(),
                 entity.getAnswer()
-
         );
     }
 
@@ -83,32 +81,5 @@ public class MapperUtils {
                 usuario.getPath()
         );
     }
-//////
-
-    public Function<QuestionPhotoDTO, Question> mapperToQuestionPhoto(String id) {
-        return updateQuestion -> {
-            var question = new Question();
-            question.setId(id);
-            question.setUserId(updateQuestion.getUserId());
-            question.setCategory(updateQuestion.getCategory());
-            question.setQuestion(updateQuestion.getQuestion());
-            question.setUserId(updateQuestion.getUserId());
-            question.setType(updateQuestion.getType());
-            question.setEmail(updateQuestion.getEmail());
-            return question;
-        };
-    }
-
-    public Function<Question, QuestionPhotoDTO> mapEntityToQuestionPhoto() {
-        return entity -> new QuestionPhotoDTO(
-                entity.getId(),
-                entity.getUserId(),
-                entity.getQuestion(),
-                entity.getType(),
-                entity.getCategory(),
-                entity.getEmail()
-        );
-    }
-
 
 }
